@@ -70,15 +70,16 @@ export default function App() {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-screen w-full bg-gray-900 text-white justify-end">
-      <div className="flex-1 overflow-y-auto p-4 space-y-2 flex flex-col">
+    <div className="flex flex-col h-screen w-full bg-[#343541] text-white justify-end">
+      <div className="flex-1 overflow-y-auto px-0 py-6 space-y-4 flex flex-col max-w-2xl mx-auto w-full">
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`px-4 py-2 rounded-lg ${msg.sender === "user"
-                ? "bg-blue-600 self-end"
-                : "bg-gray-700 self-start mt-2"
-              }`}
+            className={`max-w-[80%] px-4 py-3 rounded-xl shadow-sm ${
+              msg.sender === "user"
+                ? "bg-[#2e7dd7] self-end text-white"
+                : "bg-[#444654] self-start text-gray-100"
+            }`}
           >
             {msg.text}
             {ollamaHook.loading && msg.sender === "bot" && index === messages.length - 1 && (
@@ -89,26 +90,25 @@ export default function App() {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="p-4 flex flex-col bg-gray-800 space-y-2"
+        className="px-4 py-4 bg-[#40414f] border-t border-[#26272b] flex items-center fixed bottom-0 w-full max-w-2xl mx-auto"
+        style={{ left: "50%", transform: "translateX(-50%)" }}
       >
-        <div className="flex items-center">
-          <input
-            type="text"
-            placeholder="Escribe un mensaje..."
-            className="flex-1 p-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none"
-            {...register("text")}
-          />
-          <button
-            type="submit"
-            className="ml-2 p-2 bg-blue-600 rounded-lg"
-          >
-            <SendHorizontal size={20} />
-          </button>
-        </div>
+        <input
+          type="text"
+          placeholder="Escribe un mensaje..."
+          className="flex-1 p-3 rounded-xl bg-[#343541] border border-[#26272b] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          {...register("text")}
+        />
+        <button
+          type="submit"
+          className="ml-2 p-3 bg-[#19c37d] hover:bg-[#13a06b] rounded-xl transition-colors"
+        >
+          <SendHorizontal size={20} />
+        </button>
         {errors.text && (
-          <span className="text-red-400 text-sm">{errors.text.message}</span>
+          <span className="text-red-400 text-sm ml-4">{errors.text.message}</span>
         )}
       </form>
-    </div >
+    </div>
   );
 }
